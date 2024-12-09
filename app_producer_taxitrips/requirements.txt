@@ -1,0 +1,6 @@
+
+Faker==33.1.0
+pandas==2.2.3
+ctgan==0.10.2
+requests==2.32.3
+confluent-kafka==2.6.1

@@ -1,0 +1,27 @@
+
+appName: taxitrips-stream-collector
+container-name: taxitrips-stream-collector-container
+port: 9601
+
+service:
+  port: 9602
+  type: ClusterIP
+
+namespace: dev
+
+deployment:
+  replicas: 2
+  
+configmap:
+  name: taxitrips-stream-collector-configmap
+  data:
+    CUSTOM_HEADER: 'This app was deployed with helm!'
+
+image:
+  name: e4espootin/taxitrips-stream-collector
+  tag: latest
+
+secret:
+  secret_id: AWS_ACCESS_KEY_ID
+  secret_key: AWS_SECRET_ACCESS_KEY
+  secret_config_name: aws-s3-secret-etlop

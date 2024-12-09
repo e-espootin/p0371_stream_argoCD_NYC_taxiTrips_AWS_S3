@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+        tier: frontend
+    spec: # Pod spec
+      containers:
+      - name: {{ .Values.container-name }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        env: # Pass secret values as environment variables
+        - name: {{ .Values.secret.secret_id }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.secret_config_name }}
+              key: {{ .Values.secret.secret_id }}
+        - name: {{ .Values.secret.secret_key }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.secret_config_name }}
+              key: {{ .Values.secret.secret_key }}
+        ports:
+        - containerPort: {{ .Values.port }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.configmap.name }}
+        resources:
+          requests:
+            memory: "16Mi" 
+            cpu: "50m"    # 50 milli cores (1/20 CPU)
+          limits:
+            memory: "128Mi" # 128 mebibytes 
+            cpu: "100m"
