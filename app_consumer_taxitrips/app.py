@@ -40,7 +40,8 @@ def consume_and_store_streams():
         )
         print(f"Kafka bootstrap: {kafka_manager.bootstrap_servers}")
         print(f"Kafka topic: {kafka_manager.topic_name}")
-        
+        print(f"bucket_name: {kafka_manager.bucket_name}")
+        print(f"s3_file_path: {kafka_manager.s3_file_path}")
         # create consumer
         kafka_manager.create_consumer(  # create consumer
             group_id=consumer_group

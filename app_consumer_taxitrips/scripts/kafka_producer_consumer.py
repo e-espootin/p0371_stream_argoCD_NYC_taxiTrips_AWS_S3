@@ -56,7 +56,7 @@ class MyKafkaManager:
             # file name with date - time stamp
             local_path = '~/Downloads/test_output_parquet/'
             filename = f'output_{pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")}.csv'
-            print("{}/{}".format(local_path, filename))
+            # print("{}/{}".format(local_path, filename))
             #df.to_parquet("{}/{}".format(local_path, filename))
 
             
@@ -78,6 +78,7 @@ class MyKafkaManager:
         
         except Exception as e:
             print(f"Failed to store messages!! : {e}")
+            print(f"tried path s3://{self.bucket_name}/{target_filename}")
 
     def send_message(self, topic, message: json):
         try:
