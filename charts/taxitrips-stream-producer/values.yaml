@@ -21,6 +21,6 @@ image:
   name: e4espootin/taxitrips-stream-producer
   tag: latest
 
-# secret:
-#   Apikey: KEY
-#   secret_config_name: apikey-openweathermap
+secret:
+  Apikey: KEY
+  secret_config_name: apikey-openweathermap

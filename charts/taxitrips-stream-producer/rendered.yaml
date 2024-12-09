@@ -1,1 +1,71 @@
-
+---
+# Source: taxitrips-stream-producer-chart/templates/configmap.yaml
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: taxitrips-stream-producer-configmap
+  namespace: dev
+data:
+  BG_COLOR: '#12181b'
+  FONT_COLOR: '#FFFFFF'
+  CUSTOM_HEADER: This app was deployed with helm!
+---
+# Source: taxitrips-stream-producer-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: taxitrips-stream-producer
+  namespace: dev
+  labels:
+    app: taxitrips-stream-producer
+spec:
+  ports:
+  - port: 9009
+    protocol: TCP
+    name: flask
+  selector:
+    app: taxitrips-stream-producer
+    tier: frontend
+  type: LoadBalancer
+---
+# Source: taxitrips-stream-producer-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxitrips-stream-producer
+  namespace: dev
+  labels:
+    app: taxitrips-stream-producer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: taxitrips-stream-producer
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: taxitrips-stream-producer
+        tier: frontend
+    spec: # Pod spec
+      containers:
+      - name: taxitrips-stream-producer-container
+        image: "e4espootin/taxitrips-stream-producer:latest"
+        env: # Pass secret values as environment variables
+        - name: KEY
+          valueFrom:
+            secretKeyRef:
+              name: apikey-openweathermap
+              key: KEY
+        ports:
+        - containerPort: 9009
+        envFrom:
+        - configMapRef:
+            name: taxitrips-stream-producer-configmap
+        resources:
+          requests:
+            memory: "16Mi" 
+            cpu: "50m"    # 50 milli cores (1/20 CPU)
+          limits:
+            memory: "128Mi" # 128 mebibytes 
+            cpu: "100m"
