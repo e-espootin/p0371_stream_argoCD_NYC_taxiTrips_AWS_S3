@@ -1,6 +1,6 @@
 
 appName: taxitrips-stream-producer
-container-name: taxitrips-stream-producer-container
+container_name: taxitrips-stream-producer-container
 port: 9009
 
 service:

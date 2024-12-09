@@ -1,6 +1,6 @@
 
 appName: taxitrips-stream-collector
-container-name: taxitrips-stream-collector-container
+container_name: taxitrips-stream-collector-container
 port: 9601
 
 service:
