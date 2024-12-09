@@ -35,8 +35,8 @@ def consume_and_store_streams():
             topic_name=kafka_topic,
             aws_access_key_id=aws_access_key,
             aws_secret_access_key=aws_secret_key,
-            bucket_name="databricks-workspace-stack-8c3a9-bucket",
-            s3_file_path="unity-catalog/taxi-data-dev"
+            bucket_name=config['aws']['bucket_name'],
+            s3_file_path=config['aws']['s3_file_path']
         )
         print(f"Kafka bootstrap: {kafka_manager.bootstrap_servers}")
         print(f"Kafka topic: {kafka_manager.topic_name}")
