@@ -2,7 +2,7 @@ import configparser
 from scripts import kafka_producer_consumer
 #import argparse
 import os
-import time
+
 
 
 def read_config(file_path):
@@ -50,10 +50,6 @@ def consume_and_store_streams():
         )
         kafka_manager.consume_messages_Commit_manually(messages_batch_size)
         
-
-
-            
-
     except Exception as e:
         print(f"Failed to consume messages: {e}")   
 
@@ -61,5 +57,3 @@ def consume_and_store_streams():
 
 if __name__ == "__main__":
     consume_and_store_streams()
-
-    # todo : upload into data lake

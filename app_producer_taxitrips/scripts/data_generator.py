@@ -10,8 +10,6 @@ class DataGenerator:
         self.example_file = example_file
         self.df = pd.DataFrame()
         
-
-
     # validate , if inputed file exists
     def validate_sample_file(self):
         try:
@@ -40,10 +38,10 @@ class DataGenerator:
             # weather = openWeatherMapApi.OpenWeatherMapAPIClass()
             # ny_weather = weather.get_formatted_weather_data("New York", 1)
 
-
             for _ in range(num_samples):
                 record = {
                     "VendorID": random.randint(1, 2),
+                    "log_datetime": fake.date_time_this_decade().isoformat(),
                     "lpep_pickup_datetime": fake.date_time_this_decade().isoformat(),
                     "lpep_dropoff_datetime": '',
                     "request_datetime": '',
@@ -93,6 +91,8 @@ class DataGenerator:
                     "feels_like": random.randint(0, 100),
                     "weather_description": random.choice(["Clear", "Cloudy", "Rain", "Snow", "Fog"]),
                     "wind_speed_km": random.randint(2, 35),
+                    # given trip score
+                    "trip_statisfication": random.choice(["Excellent", "Good", "Average", "Poor"]),
                   
 
                 }
@@ -132,9 +132,7 @@ class DataGenerator:
             print(f"Error in generate_sample_data_gans() >> : {e}")
             return False
         
-    # generate using SDV is a specialized library for generating high-quality synthetic data based on existing datasets.
-
-
+    # generate using SDV , TODO
 
 # Example usage
 if __name__ == "__main__":

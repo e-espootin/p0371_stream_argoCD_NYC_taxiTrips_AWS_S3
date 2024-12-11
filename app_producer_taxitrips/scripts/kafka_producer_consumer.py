@@ -5,7 +5,7 @@ import json
 
 
 class MyKafkaManager:
-    def __init__(self, bootstrap_servers=['kafka:9092'], topic_name = "taxi-topic"    ):
+    def __init__(self, bootstrap_servers=['kafka:9092'], topic_name = "taxi-topic"):
         self.bootstrap_servers = bootstrap_servers
         self.producer = None
         self.consumer = None
@@ -18,44 +18,24 @@ class MyKafkaManager:
 
             self.producer = Producer({'bootstrap.servers': self.bootstrap_servers})
 
-            # KafkaProducer(
-            #     bootstrap_servers=self.bootstrap_servers,
-            #     value_serializer=lambda v: json.dumps(v).encode('utf-8'),
-            #     acks='0',
-            #     retries=2,
-            #     linger_ms=5,
-            #     request_timeout_ms=10000,  # Add timeout
-            #     retry_backoff_ms=1000
-            #     # batch_size=32768,
-            #     # compression_type='gzip',
-            #     # max_in_flight_requests_per_connection=10
-
-            # )
             return self.producer
         except Exception as e:
             print(f"Failed to create producer: {e}")
             
-
-    
 
     def create_topic(self):
         print(f"Creating topic: {self.topic_name}")
         self.admin_client = AdminClient({'bootstrap.servers': self.bootstrap_servers})
 
         try:
-            # new_topic = NewTopic(name=self.topic_name, num_partitions=1, replication_factor=1)
             new_topic = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [self.topic_name]]
 
-            # self.admin_client.create_topics([new_topic])
             fs = self.admin_client.create_topics(new_topic)
             print(f"Topic '{self.topic_name}' created successfully")
         # except TopicAlreadyExistsError:
         #     print(f"Topic '{self.topic_name}' already exists")
         except Exception as e:
             print(f"Failed to create topic: {e}")
-        
-            
-
         
     def delivery_report(self, err, msg):
         """ Called once for each message produced to indicate delivery result.
@@ -73,7 +53,6 @@ class MyKafkaManager:
                 self.create_producer()
 
             # send message
-            # for data in message:
             print(f"Sending message: {message}")
             # Trigger any available delivery report callbacks from previous produce() calls
             self.producer.poll(0)
@@ -102,15 +81,6 @@ class MyKafkaManager:
                 'auto.offset.reset': 'earliest'
             })
 
-        
-        # KafkaConsumer(
-        #     self.topic_name,
-        #     bootstrap_servers=self.bootstrap_servers,
-        #     auto_offset_reset='earliest', #latest, earliest, none
-        #     enable_auto_commit=True, # Automatically commit offsets
-        #     group_id=group_id,
-        #     value_deserializer=lambda x: json.loads(x.decode('utf-8'))
-        # )
         print(f"Consumer for topic: {self.topic_name} created successfully")
         return self.consumer
     

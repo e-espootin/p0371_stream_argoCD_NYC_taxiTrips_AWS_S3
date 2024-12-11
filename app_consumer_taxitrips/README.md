@@ -1,8 +1,9 @@
 
 
-## build image
+## build image local
 docker build -t taxitrips-stream-collector .
 docker run -it --rm --network host taxitrips-stream-collector:latest
+
 # build and push docker hub
 docker build -t e4espootin/taxitrips-stream-collector .
 docker push e4espootin/taxitrips-stream-collector
@@ -11,6 +12,7 @@ docker push e4espootin/taxitrips-stream-collector
 
 # docker run
 docker run -it --rm -d --network host --name taxitrips-stream-collector e4espootin/taxitrips-stream-collector 
+
 # python run
 python main.py 
 

@@ -51,7 +51,6 @@ class MyKafkaManager:
 
 
             df = pd.DataFrame(data)
-            # print(f"DataFrame: {df.info()}")
 
             # file name with date - time stamp
             local_path = '~/Downloads/test_output_parquet/'
@@ -87,7 +86,6 @@ class MyKafkaManager:
                 self.create_producer()
 
             # send message
-            # for data in message:
             print(f"Sending message: {message}")
             # Trigger any available delivery report callbacks from previous produce() calls
             self.producer.poll(0)
