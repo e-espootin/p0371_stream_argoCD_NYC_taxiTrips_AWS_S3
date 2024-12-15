@@ -1,8 +1,13 @@
-# stream generated data based on TLC trip data using Kafka, ArgoCD into AWS S3
+# Streaming Generated TLC Trip Data with Python, Kafka, Kubernetes, ArgoCD into AWS S3
 
 ## Project Summary
+This project simulates TLC trip data using the Faker library within a containerized environment. It leverages Docker images for both data producers and consumers, which are managed by ArgoCD and deployed on Kubernetes. The Helm configuration file dictates the number of producer and consumer containers. Generated data is continuously streamed and stored in AWS S3. The Kafka server, along with Minikube and ArgoCD, is set up on a local Ubuntu machine to facilitate this process.
 
-This project generates data based on TLC trip data using the Faker library within a built container. It includes two Docker images for the producer and consumer. These containers are pulled from Docker Hub based on ArgoCD configurations in the repository. A number of containers, based on the configuration file, will be created for producers and consumers. Data is generated continuously and saved in AWS S3. Additionally, the Kafka Server will be run on a local Ubuntu machine along with Minikube and ArgoCD.
 
+## project structure
+![Project Architecture](images/diagram.png)
 
-![Project Architecture](path/to/your/image.png)
+## ArogCD & kubernetes & kafka
+![kafka producer](images/producer.png)
+
+![kafka consumer](images/consumer.png)

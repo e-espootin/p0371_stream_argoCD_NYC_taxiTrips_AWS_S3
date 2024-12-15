@@ -10,7 +10,7 @@ service:
 namespace: dev
 
 deployment:
-  replicas: 2
+  replicas: 3
   
 configmap:
   name: taxitrips-stream-producer-configmap
