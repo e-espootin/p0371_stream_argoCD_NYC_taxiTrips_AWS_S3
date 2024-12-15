@@ -11,3 +11,5 @@ This project simulates TLC trip data using the Faker library within a containeri
 ![kafka producer](images/producer.png)
 
 ![kafka consumer](images/consumer.png)
+
+![ArgoCD](images/argocd.png)
